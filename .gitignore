@@ -1,0 +1,25 @@
+# Python 缓存
+__pycache__/
+*.py[cod]
+
+# 操作系统和编辑器文件
+.DS_Store
+.vscode/
+.idea/
+
+# 课程数据不上传
+train_data.csv
+test_data_unlabeled.csv
+
+# 教师提供的初始示例
+draft_main.py
+TUNING.md
+predictions.csv
+
+# 包含原始错误文本，不公开
+outputs/best_validation_errors.csv
+
+# 最终提交文件单独上传
+outputs/prediction.csv
+*.zip
+*.rar

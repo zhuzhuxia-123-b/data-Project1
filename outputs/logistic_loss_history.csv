@@ -1,0 +1,61 @@
+﻿max_iter,actual_n_iter,converged,convergence_warning,train_log_loss,val_log_loss,train_accuracy,val_accuracy,train_macro_f1,val_macro_f1,accuracy_gap,fit_seconds,C,solver,regularization,max_features,ngram_range,sublinear_tf,random_state,validation_size,sklearn_version
+1,1,False,"lbfgs failed to converge after 1 iteration(s) (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT
+
+Increase the number of iterations to improve the convergence (max_iter=1).
+You might also want to scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression",2.1145995788994716,2.1280936395922927,0.46725483542585683,0.43758480325644505,0.44043773382474516,0.4172589652317396,0.029670032169411775,0.06464569992385805,100.0,lbfgs,L2,20000,"(1, 1)",False,42,0.2,1.9.0
+2,2,False,"lbfgs failed to converge after 2 iteration(s) (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT
+
+Increase the number of iterations to improve the convergence (max_iter=2).
+You might also want to scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression",1.0202982129292302,1.132227096417003,0.8403461146929081,0.7734056987788331,0.8370565231352218,0.7641028306734325,0.06694041591407496,0.06458760006353259,100.0,lbfgs,L2,20000,"(1, 1)",False,42,0.2,1.9.0
+3,3,False,"lbfgs failed to converge after 3 iteration(s) (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT
+
+Increase the number of iterations to improve the convergence (max_iter=3).
+You might also want to scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression",0.9433897171095001,1.0594269446544986,0.828978622327791,0.7754409769335142,0.8383161840967059,0.7845007395246129,0.053537645394276745,0.0955020000692457,100.0,lbfgs,L2,20000,"(1, 1)",False,42,0.2,1.9.0
+5,5,False,"lbfgs failed to converge after 5 iteration(s) (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT
+
+Increase the number of iterations to improve the convergence (max_iter=5).
+You might also want to scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression",0.5430096905131575,0.7195732224557011,0.8637597556837462,0.7930800542740841,0.8689108569096998,0.7989966964654613,0.07067970140966207,0.13127989997155964,100.0,lbfgs,L2,20000,"(1, 1)",False,42,0.2,1.9.0
+10,10,False,"lbfgs failed to converge after 10 iteration(s) (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT
+
+Increase the number of iterations to improve the convergence (max_iter=10).
+You might also want to scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression",0.3314857189366222,0.5848286059302773,0.9102477095351205,0.8371777476255088,0.9105652105737974,0.8378701374297186,0.07306996190961168,0.2297901000129059,100.0,lbfgs,L2,20000,"(1, 1)",False,42,0.2,1.9.0
+20,20,False,"lbfgs failed to converge after 20 iteration(s) (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT
+
+Increase the number of iterations to improve the convergence (max_iter=20).
+You might also want to scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression",0.06920868681512518,0.2908652063008986,0.99321343739396,0.9118046132971506,0.9932184125304786,0.9123247132255417,0.08140882409680938,0.4522138999309391,100.0,lbfgs,L2,20000,"(1, 1)",False,42,0.2,1.9.0
+50,50,False,"lbfgs failed to converge after 50 iteration(s) (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT
+
+Increase the number of iterations to improve the convergence (max_iter=50).
+You might also want to scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression",0.02128933296656934,0.2674733324010622,0.999830335934849,0.9280868385345997,0.9998306515041688,0.9286060814522987,0.07174349740024932,1.1525258999317884,100.0,lbfgs,L2,20000,"(1, 1)",False,42,0.2,1.9.0
+100,64,True,,0.01659697874797859,0.2601729584839278,0.999830335934849,0.9328358208955224,0.9998306515041688,0.9333241092529608,0.06699451503932663,1.4711507000029087,100.0,lbfgs,L2,20000,"(1, 1)",False,42,0.2,1.9.0
+200,64,True,,0.01659697874797859,0.2601729584839278,0.999830335934849,0.9328358208955224,0.9998306515041688,0.9333241092529608,0.06699451503932663,1.4692344999639317,100.0,lbfgs,L2,20000,"(1, 1)",False,42,0.2,1.9.0
+500,64,True,,0.01659697874797859,0.2601729584839278,0.999830335934849,0.9328358208955224,0.9998306515041688,0.9333241092529608,0.06699451503932663,1.4832216000650078,100.0,lbfgs,L2,20000,"(1, 1)",False,42,0.2,1.9.0
+1000,64,True,,0.01659697874797859,0.2601729584839278,0.999830335934849,0.9328358208955224,0.9998306515041688,0.9333241092529608,0.06699451503932663,1.463382299989462,100.0,lbfgs,L2,20000,"(1, 1)",False,42,0.2,1.9.0

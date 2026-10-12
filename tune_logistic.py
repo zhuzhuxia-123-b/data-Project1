@@ -21,7 +21,7 @@ from compare_models import calculate_metrics
 MAX_MODEL_ITERATIONS = 2000
 
 # A、B 用于检查词表大小；
-# B、C、D 用于比较 C。
+# B、C、D E 用于比较 C。
 EXPERIMENTS = [
     {
         "experiment": "A_vocab5000_C1",
@@ -42,6 +42,11 @@ EXPERIMENTS = [
         "experiment": "D_vocab20000_C10",
         "max_features": 20000,
         "C": 10.0,
+    },
+    {
+        "experiment": "E_vocab20000_C100",
+        "max_features": 20000,
+        "C": 100.0,
     },
 ]
 

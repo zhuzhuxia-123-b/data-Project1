@@ -5,15 +5,20 @@ import numpy as np
 import pandas as pd
 import sklearn
 from sklearn.exceptions import ConvergenceWarning
-from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import (
     ConfusionMatrixDisplay,
     classification_report,
     confusion_matrix,
 )
 from sklearn.model_selection import train_test_split
-from sklearn.pipeline import Pipeline
-from sklearn.svm import LinearSVC
+from model_config import (
+    FINAL_MAX_FEATURES,
+    FINAL_NGRAM_RANGE,
+    FINAL_SUBLINEAR_TF,
+    FINAL_SVM_C,
+    FINAL_SVM_MAX_ITER,
+    build_final_model,
+)
 
 from baseline import (
     DATA_DIR,
@@ -27,29 +32,6 @@ from compare_models import calculate_metrics
 LABELS = list(range(10))
 
 
-def build_model():
-    """每次调用都返回一个尚未训练的最佳配置模型。"""
-    return Pipeline([
-        (
-            "tfidf",
-            TfidfVectorizer(
-                max_features=20000,
-                ngram_range=(1, 1),
-                sublinear_tf=False,
-                lowercase=True,
-                stop_words=None,
-            ),
-        ),
-        (
-            "classifier",
-            LinearSVC(
-                C=1.0,
-                dual="auto",
-                max_iter=10000,
-                random_state=RANDOM_STATE,
-            ),
-        ),
-    ])
 
 
 def main():
@@ -63,7 +45,7 @@ def main():
         stratify=y,
     )
 
-    model = build_model()
+    model = build_final_model()
 
     with warnings.catch_warnings():
         warnings.simplefilter("error", ConvergenceWarning)
@@ -95,9 +77,9 @@ def main():
         f"scikit-learn: {sklearn.__version__}\n"
         f"随机种子: {RANDOM_STATE}\n"
         f"验证集比例: {VALIDATION_SIZE}\n"
-        "TF-IDF: max_features=20000, "
-        "ngram_range=(1, 1), sublinear_tf=False\n"
-        "模型: LinearSVC(C=1.0, dual='auto', max_iter=10000)\n"
+        f"TF-IDF: max_features={FINAL_MAX_FEATURES}, "
+        f"ngram_range={FINAL_NGRAM_RANGE}, sublinear_tf={FINAL_SUBLINEAR_TF}\n"
+        f"模型: LinearSVC(C={FINAL_SVM_C}, dual='auto', max_iter={FINAL_SVM_MAX_ITER})\n"
         f"训练样本数: {len(X_train)}\n"
         f"验证样本数: {len(X_val)}\n"
         f"Accuracy: {metrics['accuracy']:.4f}\n"

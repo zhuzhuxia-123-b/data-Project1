@@ -6,7 +6,7 @@ import sklearn
 from sklearn.exceptions import ConvergenceWarning
 
 from baseline import DATA_DIR, load_training_data
-from analyze_best import build_model
+from model_config import build_final_model
 
 
 def load_test_texts():
@@ -70,7 +70,7 @@ def main():
     print(f"测试样本数: {len(X_test)}")
 
     # 创建全新的 Pipeline，复用已经确定的配置。
-    model = build_model()
+    model = build_final_model()
 
     print("\n开始使用全部有标签数据重新训练……")
     training_start = perf_counter()

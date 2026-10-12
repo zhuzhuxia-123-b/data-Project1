@@ -1,4 +1,5 @@
 
+
 # 当代人工智能实验一：文本分类
 
 本项目完成《当代人工智能实验课》实验一：文本分类。
@@ -91,11 +92,13 @@ data-Project1/
 ├── compare_models.py
 ├── tune_svm.py
 ├── compare_tfidf.py
-├── analyze_best.py
-├── svm_loss_curve.py
 ├── tune_logistic.py
-├── check_logistic_c100.py
+├── svm_loss_curve.py
 ├── logistic_loss_curve.py
+├── analyze_best.py
+├── multi_seed_validation.py
+├── compare_char_features.py
+├── model_config.py
 ├── generate_prediction.py
 ├── requirements.txt
 ├── README.md
@@ -104,19 +107,22 @@ data-Project1/
 
 各脚本作用如下。
 
-| 脚本                       | 作用                                                   |
-| -------------------------- | ------------------------------------------------------ |
-| `inspect_data.py`        | 检查数据列名、缺失值、重复文本、标签分布和预测文件格式 |
-| `baseline.py`            | 训练5000维TF-IDF与MultinomialNB基线                    |
-| `compare_models.py`      | 在相同特征下比较NB、LR和LinearSVC                      |
-| `tune_svm.py`            | 比较LinearSVC的不同C参数                               |
-| `compare_tfidf.py`       | 比较词表大小、bigram和sublinear TF设置                 |
-| `analyze_best.py`        | 分析最佳SVM的分类报告、混淆矩阵和错误样本              |
-| `svm_loss_curve.py`      | 计算并绘制LinearSVC的loss检查点曲线                    |
-| `tune_logistic.py`       | 比较LR的词表大小以及C=0.1、1、10                       |
-| `check_logistic_c100.py` | 补充测试LR的C=100配置                                  |
-| `logistic_loss_curve.py` | 计算并绘制LR的log-loss检查点曲线                       |
-| `generate_prediction.py` | 使用最终模型重新训练并生成`prediction.csv`           |
+
+| 脚本                         | 作用                                               |
+| ---------------------------- | -------------------------------------------------- |
+| `inspect_data.py`          | 检查列名、缺失值、重复文本、标签分布和预测示例格式 |
+| `baseline.py`              | 训练5000维TF-IDF与MultinomialNB基线                |
+| `compare_models.py`        | 在相同特征下比较NB、LR和LinearSVC                  |
+| `tune_svm.py`              | 比较LinearSVC的不同C参数                           |
+| `compare_tfidf.py`         | 比较词表大小、bigram和sublinear TF设置             |
+| `tune_logistic.py`         | 比较LR的词表大小以及C=0.1、1、10、100              |
+| `svm_loss_curve.py`        | 计算并绘制LinearSVC的loss检查点曲线                |
+| `logistic_loss_curve.py`   | 计算并绘制LR的log-loss检查点曲线                   |
+| `analyze_best.py`          | 分析最终SVM的分类报告、混淆矩阵和错误样本          |
+| `multi_seed_validation.py` | 使用5个随机种子比较SVM与LR的稳定性                 |
+| `compare_char_features.py` | 比较词级、字符级及词字符组合TF-IDF                 |
+| `model_config.py`          | 集中保存最终模型参数并创建最终Pipeline             |
+| `generate_prediction.py`   | 使用最终模型重新训练并生成`prediction.csv`       |
 
 ## 6. 推荐运行顺序
 
@@ -137,8 +143,9 @@ python compare_tfidf.py
 python analyze_best.py
 python svm_loss_curve.py
 python tune_logistic.py
-python check_logistic_c100.py
 python logistic_loss_curve.py
+python multi_seed_validation.py
+python compare_char_features.py
 ```
 
 完成所有训练集和验证集实验、确定最终配置后，再运行：
@@ -231,7 +238,32 @@ outputs/logistic_loss_curve.png
 
 这些曲线是不同迭代预算下独立训练得到的检查点曲线，不是单次`fit`内部自动输出的原生逐迭代历史。
 
-## 11. 最终模型
+## 11. 稳定性与创新实验
+
+### 多随机种子验证
+
+固定20000维词级unigram TF-IDF和各模型参数，使用随机种子42、52、62、72、82重新进行5次分层划分。
+
+| 模型                | 平均验证Accuracy | 平均验证Macro-F1 | Macro-F1标准差 | 平均训练时间 |
+| ------------------- | ---------------: | ---------------: | -------------: | -----------: |
+| LinearSVC           |           0.9346 |           0.9348 |         0.0048 |      0.270秒 |
+| Logistic Regression |           0.9315 |           0.9317 |         0.0070 |      1.548秒 |
+
+LinearSVC在5次比较中胜出4次，平均Macro-F1高出0.0030，同时标准差更小、训练速度更快，因此最终继续选择LinearSVC。
+
+### 字符特征实验
+
+在相同的数据划分和20000维特征上限下，比较词级、字符级及组合TF-IDF。
+
+| 特征                      | 验证Macro-F1 | 特征处理时间 | 分类器训练时间 |
+| ------------------------- | -----------: | -----------: | -------------: |
+| 20000维词级unigram        |       0.9337 |       1.17秒 |         0.27秒 |
+| 10000维词级+10000维字符级 |       0.9297 |      17.05秒 |         2.50秒 |
+| 20000维字符级char_wb      |       0.8857 |      16.08秒 |         3.40秒 |
+
+字符特征没有提高验证性能，而且显著增加了特征矩阵密度和计算时间，因此最终仍使用词级unigram特征。
+
+## 12. 最终模型
 
 最终模型配置为：
 
@@ -258,7 +290,7 @@ Validation Macro-F1 = 0.9337
 
 Logistic Regression的最佳验证Macro-F1为0.9333。两个模型表现非常接近，但LinearSVC略高，而且分类器训练速度更快，因此被选作最终模型。
 
-## 12. 输出文件
+## 13. 输出文件
 
 主要实验输出保存在`outputs`目录：
 
@@ -267,14 +299,18 @@ outputs/
 ├── model_comparison.csv
 ├── svm_c_results.csv
 ├── tfidf_comparison.csv
+├── logistic_c_results.csv
 ├── best_validation_report.txt
+├── best_validation_errors.csv
 ├── best_confusion_matrix.png
 ├── svm_loss_history.csv
 ├── svm_loss_curve.png
-├── logistic_c_results.csv
-├── logistic_c100_result.csv
 ├── logistic_loss_history.csv
 ├── logistic_loss_curve.png
+├── multi_seed_results.csv
+├── multi_seed_summary.csv
+├── multi_seed_paired_differences.csv
+├── char_feature_comparison.csv
 └── prediction.csv
 ```
 
@@ -287,8 +323,8 @@ outputs/
 - 无空白行；
 - 顺序与测试集原始顺序一致。
 
-## 13. 复现实验
+## 14. 复现实验
 
 在数据文件和依赖版本一致的情况下，按照“推荐运行顺序”依次执行脚本，可以重新生成各项实验结果。
 
-由于训练集和验证集划分使用固定随机种子42，同一scikit-learn版本下应得到相同或非常接近的指标。运行时间可能因计算机硬件和系统负载而不同。
+主实验使用固定随机种子42，稳定性实验使用42、52、62、72、82五个固定随机种子。同一数据和scikit-learn版本下应得到相同或非常接近的指标，运行时间可能因计算机硬件和系统负载而不同。
